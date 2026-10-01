@@ -112,6 +112,7 @@ shader = ExtResource("1_sugp2")
 shader_parameter/bottom_layer = ExtResource("2_jyhfs")
 shader_parameter/tex_width = 448.0
 shader_parameter/tex_height = 448.0
+shader_parameter/modulator = Color(0.7345471, 0.5608889, 0.5153667, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o6xl0"]
 texture = ExtResource("3_tbgi4")

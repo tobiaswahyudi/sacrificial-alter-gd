@@ -5,6 +5,7 @@ uniform sampler2D bottom_layer : hint_default_black;
 uniform float tex_width;
 uniform float tex_height;
 
+uniform vec4 modulator : source_color;
 
 varying vec2 world_pos;
 
@@ -21,7 +22,7 @@ void fragment() {
     vec4 bottom_color = texture(bottom_layer, vec2(vx, vy));
     
      //Multiply RGB values of both layers
-    COLOR.rgb = bottom_color.rgb * top_color.rgb;
+    COLOR.rgb = bottom_color.rgb * top_color.rgb * modulator.xyz;
     
     // Combine alpha channels gracefully
     COLOR.a = bottom_color.a * top_color.a;
