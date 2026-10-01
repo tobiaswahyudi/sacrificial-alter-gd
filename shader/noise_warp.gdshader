@@ -8,7 +8,7 @@ uniform float time_period = 0.01;
 uniform float displace_amp = 1;
 uniform float time_displace_amp = 1;
 
-uniform vec4 modulator;
+uniform vec4 modulator : source_color;
 
 // Simple pseudo-random hash function
 float random(vec2 st) {
