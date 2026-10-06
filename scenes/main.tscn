@@ -13,10 +13,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
 shader = ExtResource("1_o6xl0")
-shader_parameter/noise_period = 0.01
-shader_parameter/time_period = 0.06
-shader_parameter/displace_amp = 0.6
-shader_parameter/time_displace_amp = 0.5
+shader_parameter/noise_period = 0.008
+shader_parameter/time_period = 0.1
+shader_parameter/displace_amp = 0.25
 shader_parameter/modulator = Color(0.36594152, 0.2885489, 0.14824235, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85g3d"]
@@ -227,14 +226,13 @@ height = 52.0
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=24569263]
 scroll_scale = Vector2(0.8, 0.8)
-repeat_size = Vector2(900, 900)
+repeat_size = Vector2(875, 875)
 
 [node name="background" type="Sprite2D" parent="Parallax2D" unique_id=1758010733]
-modulate = Color(0.6626214, 0.36562973, 0.23528847, 1)
 texture_repeat = 2
 material = SubResource("ShaderMaterial_o6xl0")
 position = Vector2(285, 167)
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_tefeu")
 region_enabled = true
 region_rect = Rect2(0, 0, 6000, 6000)
@@ -243,7 +241,7 @@ region_rect = Rect2(0, 0, 6000, 6000)
 position = Vector2(743, 254)
 texture = ExtResource("3_tipki")
 script = ExtResource("4_choun")
-player_area = NodePath("../Player/Area2D")
+player_area = NodePath("../Player/InteractorArea")
 
 [node name="Area2D" type="Area2D" parent="Altar" unique_id=1093778039]
 
@@ -331,7 +329,8 @@ JUMP_HEIGHT = 70.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=784886208]
 sprite_frames = SubResource("SpriteFrames_tbgi4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1728505141]
+[node name="CollisionShape" type="CollisionShape2D" parent="Player" unique_id=1728505141]
+visible = false
 position = Vector2(-2, -1)
 shape = SubResource("CapsuleShape2D_tefeu")
 
@@ -339,8 +338,9 @@ shape = SubResource("CapsuleShape2D_tefeu")
 zoom = Vector2(1.2, 1.2)
 position_smoothing_enabled = true
 
-[node name="Area2D" type="Area2D" parent="Player" unique_id=636849392]
+[node name="InteractorArea" type="Area2D" parent="Player" unique_id=636849392]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Player/Area2D" unique_id=1765867629]
+[node name="InteractorAreaShape" type="CollisionShape2D" parent="Player/InteractorArea" unique_id=1765867629]
+visible = false
 position = Vector2(-2, -1)
 shape = SubResource("CapsuleShape2D_tefeu")

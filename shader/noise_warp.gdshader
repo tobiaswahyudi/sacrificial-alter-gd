@@ -1,12 +1,13 @@
 shader_type canvas_item;
 render_mode world_vertex_coords;
 
+#include "res://shader/noise3.gdshaderinc"
+
 varying vec2 world_pos;
 
 uniform float noise_period = 0.001;
 uniform float time_period = 0.01;
 uniform float displace_amp = 1;
-uniform float time_displace_amp = 1;
 
 uniform vec4 modulator : source_color;
 
@@ -36,11 +37,12 @@ void vertex() {
 void fragment() {
 	vec2 seed = world_pos * noise_period;
 
-	seed = vec2(seed.x + (TIME + 1312.0) * time_period + sin((TIME + 231.1) * time_period) * time_displace_amp, seed.y + (TIME + 8812.0) * time_period + cos((TIME + 1749.1321) * (time_period * 0.7123)) * time_displace_amp);
-	float dx = noise(seed);
-	float dy = noise(vec2(seed.y * 0.7123 + 100.3123, seed.x * 0.93123 + 1321.123));
+	// seed = vec2(seed.x, seed.y, TIME);
+	float dx = cnoise(vec3(seed, TIME * time_period));
+	float dy = cnoise(vec3(seed.y * 0.7123 + 100.3123, seed.x * 0.93123 + 1321.123, TIME * time_period));
 
 	vec2 displacement = vec2(dx, dy) * displace_amp;
+	// float displacement = cnoise(vec3(world_pos, 0.0));
 
 	vec4 tex_color = texture(TEXTURE, UV + displacement);
 	COLOR = tex_color * modulator;
