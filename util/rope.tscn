@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://b5otefmuke7o5"]
+
+[ext_resource type="Script" uid="uid://gec6g1lnbt7f" path="res://script/rope/verlet_rope.gd" id="1_oe7xw"]
+[ext_resource type="Script" uid="uid://8ruxocky51w0" path="res://util/follow_mouse.gd" id="2_48sw7"]
+
+[node name="Rope" type="Node2D" unique_id=1172820498 node_paths=PackedStringArray("start_node", "end_node")]
+script = ExtResource("1_oe7xw")
+start_node = NodePath("Start")
+pin_start_node = 0
+end_node = NodePath("Mouse")
+pin_end_node = 0
+rope_segments = 30
+target_segment_length = 20.0
+constraint_iterations = 40
+gravity = Vector2(0, 20)
+velocity_dampen = 0.03
+start_weight = 10.0
+
+[node name="Start" type="Node2D" parent="." unique_id=1108467707]
+position = Vector2(97, 69)
+
+[node name="Mouse" type="Node2D" parent="." unique_id=1081029377]
+position = Vector2(177, 108)
+script = ExtResource("2_48sw7")
+
+[node name="RopeEnd" type="Node2D" parent="." unique_id=62306851 node_paths=PackedStringArray("start_node", "end_node")]
+script = ExtResource("1_oe7xw")
+start_node = NodePath("../Mouse")
+pin_start_node = 0
+end_node = NodePath("../PlugTip")
+rope_segments = 1
+target_segment_length = 200.0
+constraint_iterations = 1
+gravity = Vector2(20, 0)
+velocity_dampen = 0.01
+color = Color(0.8666667, 0.8235294, 0, 1)
+start_weight = 20.0
+
+[node name="PlugTip" type="Node2D" parent="." unique_id=503090754]
+position = Vector2(181, 122)
