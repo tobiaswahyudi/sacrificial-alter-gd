@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://b5otefmuke7o5"]
+
+[ext_resource type="Script" uid="uid://ciilx2imoqxr7" path="res://ui/rebind/keybind_ui.gd" id="1_qyu8d"]
+[ext_resource type="Script" uid="uid://gec6g1lnbt7f" path="res://script/rope/verlet_rope.gd" id="2_tso82"]
+[ext_resource type="Texture2D" uid="uid://cw4yuv7vm2hwk" path="res://img/placeholder/keymap.png" id="3_ypl7w"]
+[ext_resource type="Theme" uid="uid://i6mkatjqw0d3" path="res://ui_theme.tres" id="4_fkulg"]
+[ext_resource type="Script" uid="uid://8ruxocky51w0" path="res://util/follow_mouse.gd" id="5_rhf70"]
+[ext_resource type="Texture2D" uid="uid://cu8812rm1lxj8" path="res://img/placeholder/red-m.png" id="6_ep25x"]
+[ext_resource type="Texture2D" uid="uid://pplimcjyuu1f" path="res://img/placeholder/red-m-o.png" id="7_o8ccu"]
+[ext_resource type="Script" uid="uid://bnvsi3pqio0i6" path="res://util/align.gd" id="8_r7tje"]
+
+[node name="Root" type="Node2D" unique_id=970145245]
+script = ExtResource("1_qyu8d")
+cable_len_extended = 16.0
+cable_len_shrunk = 2
+
+[node name="Start" type="Node2D" parent="." unique_id=1108467707]
+position = Vector2(111, 51)
+
+[node name="End" type="Node2D" parent="." unique_id=1081029377]
+position = Vector2(177, 108)
+
+[node name="CableRope" type="Node2D" parent="." unique_id=1172820498 node_paths=PackedStringArray("start_node", "end_node")]
+script = ExtResource("2_tso82")
+start_node = NodePath("../Start")
+pin_start_node = 0
+end_node = NodePath("../End")
+pin_end_node = 0
+rope_segments = 30
+target_segment_length = 4.0
+constraint_iterations = 8
+gravity = Vector2(0, 20)
+velocity_dampen = 0.03
+color = Color(0.13333334, 0.54901963, 0.56078434, 1)
+start_weight = 10.0
+
+[node name="AKey" type="TextureRect" parent="." unique_id=700838828]
+use_parent_material = true
+offset_right = 126.0
+offset_bottom = 84.0
+texture = ExtResource("3_ypl7w")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="AKey" unique_id=1663936137]
+use_parent_material = true
+layout_mode = 0
+offset_left = 27.0
+offset_top = 19.0
+offset_right = 67.0
+offset_bottom = 67.0
+theme = ExtResource("4_fkulg")
+theme_type_variation = &"Label_Alkhemikal"
+theme_override_font_sizes/font_size = 48
+text = "A"
+
+[node name="PlugRope" type="Node2D" parent="." unique_id=62306851 node_paths=PackedStringArray("start_node", "end_node")]
+script = ExtResource("2_tso82")
+start_node = NodePath("../End")
+end_node = NodePath("../PlugTip")
+rope_segments = 1
+target_segment_length = 110.0
+constraint_iterations = 2
+gravity = Vector2(-60, 0)
+velocity_dampen = 0.03
+
+[node name="PlugTip" type="Node2D" parent="." unique_id=503090754]
+position = Vector2(199, 108)
+script = ExtResource("5_rhf70")
+
+[node name="PlugButton" type="TextureButton" parent="." unique_id=1628981525 node_paths=PackedStringArray("anchor", "look_at")]
+use_parent_material = true
+offset_left = 231.0
+offset_top = 78.0
+offset_right = 340.2
+offset_bottom = 120.0
+pivot_offset_ratio = Vector2(0.15, 0.56)
+texture_normal = ExtResource("6_ep25x")
+texture_hover = ExtResource("7_o8ccu")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("8_r7tje")
+anchor = NodePath("../End")
+look_at = NodePath("../PlugTip")

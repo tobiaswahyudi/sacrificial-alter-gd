@@ -15,6 +15,10 @@ run/main_scene="uid://cl33uj4ko50kt"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 ui_left={

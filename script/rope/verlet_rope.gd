@@ -39,6 +39,10 @@ func _ready() -> void:
 		last_pos += delta_pos
 	
 	segment_length = target_segment_length
+	
+func set_segment_length(v: float):
+	segment_length = v
+	target_segment_length = v
 
 func verlet_integrate_one(time: float, i: int) -> void:
 	var velocity = cur_pos[i] - old_pos[i];
