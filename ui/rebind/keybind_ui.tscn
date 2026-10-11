@@ -18,21 +18,15 @@ cable_len_shrunk = 2
 position = Vector2(111, 51)
 
 [node name="End" type="Node2D" parent="." unique_id=1081029377]
-position = Vector2(177, 108)
+position = Vector2(238, 100)
 
 [node name="CableRope" type="Node2D" parent="." unique_id=1172820498 node_paths=PackedStringArray("start_node", "end_node")]
 script = ExtResource("2_tso82")
+check_when_run = false
 start_node = NodePath("../Start")
-pin_start_node = 0
 end_node = NodePath("../End")
-pin_end_node = 0
-rope_segments = 30
-target_segment_length = 4.0
-constraint_iterations = 8
-gravity = Vector2(0, 20)
-velocity_dampen = 0.03
-color = Color(0.13333334, 0.54901963, 0.56078434, 1)
-start_weight = 10.0
+color = Color(0, 1, 1, 1)
+start_weight = 2.0
 
 [node name="AKey" type="TextureRect" parent="." unique_id=700838828]
 use_parent_material = true
@@ -55,24 +49,26 @@ text = "A"
 
 [node name="PlugRope" type="Node2D" parent="." unique_id=62306851 node_paths=PackedStringArray("start_node", "end_node")]
 script = ExtResource("2_tso82")
+check_when_run = false
 start_node = NodePath("../End")
+pin_start_node = 1
 end_node = NodePath("../PlugTip")
 rope_segments = 1
-target_segment_length = 110.0
-constraint_iterations = 2
-gravity = Vector2(-60, 0)
-velocity_dampen = 0.03
+target_segment_length = 100.0
+gravity = Vector2(-20, 0)
+color = Color(0, 1, 1, 1)
+start_weight = 2.0
 
 [node name="PlugTip" type="Node2D" parent="." unique_id=503090754]
-position = Vector2(199, 108)
+position = Vector2(339, 96)
 script = ExtResource("5_rhf70")
 
 [node name="PlugButton" type="TextureButton" parent="." unique_id=1628981525 node_paths=PackedStringArray("anchor", "look_at")]
 use_parent_material = true
-offset_left = 231.0
-offset_top = 78.0
-offset_right = 340.2
-offset_bottom = 120.0
+offset_left = 223.0
+offset_top = 77.0
+offset_right = 332.2
+offset_bottom = 119.0
 pivot_offset_ratio = Vector2(0.15, 0.56)
 texture_normal = ExtResource("6_ep25x")
 texture_hover = ExtResource("7_o8ccu")

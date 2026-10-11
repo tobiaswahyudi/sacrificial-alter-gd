@@ -4,11 +4,8 @@
 [ext_resource type="Theme" uid="uid://i6mkatjqw0d3" path="res://ui_theme.tres" id="2_l20lt"]
 [ext_resource type="Texture2D" uid="uid://b4luprrea813p" path="res://img/placeholder/altar-stone.png" id="3_fjvrt"]
 [ext_resource type="Texture2D" uid="uid://cmqenc3sgihlk" path="res://img/placeholder/frogman.png" id="4_47o2f"]
-[ext_resource type="Texture2D" uid="uid://f6f6rjk1igks" path="res://img/placeholder/intent-meatball.png" id="7_tr0op"]
-[ext_resource type="Texture2D" uid="uid://d1sljj7u0w7j" path="res://img/placeholder/red-f.png" id="8_fjvrt"]
-[ext_resource type="Texture2D" uid="uid://bwbewvm6wrkuf" path="res://img/placeholder/red-f-o.png" id="9_0mwwc"]
+[ext_resource type="PackedScene" uid="uid://drk28j0dy0xln" path="res://ui/rebind/intent_ui.tscn" id="5_axhwi"]
 [ext_resource type="PackedScene" uid="uid://b5otefmuke7o5" path="res://ui/rebind/keybind_ui.tscn" id="9_axhwi"]
-[ext_resource type="Script" uid="uid://gec6g1lnbt7f" path="res://script/rope/verlet_rope.gd" id="9_fjvrt"]
 [ext_resource type="Script" uid="uid://ctupypg801jaw" path="res://ui/rebind/keybinds_manager.gd" id="9_rtthv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q0jdk"]
@@ -127,205 +124,31 @@ offset_bottom = 1002.75
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("4_47o2f")
 
-[node name="IntentLeft" type="TextureRect" parent="CenterContainer/PanelContainer/Bg" unique_id=729350292]
-use_parent_material = true
+[node name="IntentLeft" parent="CenterContainer/PanelContainer/Bg" unique_id=435368321 instance=ExtResource("5_axhwi")]
 layout_mode = 0
-offset_left = 393.0
+offset_left = 390.0
 offset_top = 286.0
-offset_right = 473.0
+offset_right = 470.0
 offset_bottom = 366.0
-texture = ExtResource("7_tr0op")
-expand_mode = 3
-stretch_mode = 5
+check_when_run = true
+cable_start_arc_min_angle = -1.4
+cable_start_arc_max_angle = 1.4
+cable_end_point_a = Vector2(125, 38)
+cable_end_point_b = Vector2(173, -16)
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Bg/IntentLeft" unique_id=923032990]
+[node name="IntentRight" parent="CenterContainer/PanelContainer/Bg" unique_id=1546523203 instance=ExtResource("5_axhwi")]
 layout_mode = 0
-offset_left = 23.0
-offset_top = 17.000008
-offset_right = 65.0
-offset_bottom = 64.00001
-theme = ExtResource("2_l20lt")
-theme_type_variation = &"Label_Alkhemikal"
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = -4
-theme_override_constants/outline_size = 0
-theme_override_font_sizes/font_size = 24
-text = "walk
-left"
-horizontal_alignment = 1
-
-[node name="TextureRect" type="TextureButton" parent="CenterContainer/PanelContainer/Bg/IntentLeft" unique_id=1618399880]
-use_parent_material = true
-layout_mode = 0
-offset_left = -28.000006
-offset_top = 17.999992
-offset_right = 21.999994
-offset_bottom = 61.999992
-texture_normal = ExtResource("8_fjvrt")
-texture_hover = ExtResource("9_0mwwc")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Rope" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft" unique_id=880860538 node_paths=PackedStringArray("start_node", "end_node")]
-script = ExtResource("9_fjvrt")
-start_node = NodePath("start")
-pin_start_node = 0
-end_node = NodePath("end")
-pin_end_node = 0
-rope_segments = 16
-target_segment_length = 3.0
-constraint_iterations = 2
-gravity = Vector2(0, 20)
-color = Color(0.7607843, 0, 0, 1)
-start_weight = 1.5
-
-[node name="start" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft/Rope" unique_id=1840318082]
-position = Vector2(54.999996, 57.00001)
-
-[node name="end" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft/Rope" unique_id=857603369]
-position = Vector2(153, -6.9999895)
-
-[node name="Rope2" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft" unique_id=1566938773 node_paths=PackedStringArray("start_node", "end_node")]
-script = ExtResource("9_fjvrt")
-start_node = NodePath("start")
-pin_start_node = 0
-end_node = NodePath("end")
-pin_end_node = 0
-rope_segments = 25
-target_segment_length = 3.0
-constraint_iterations = 2
-gravity = Vector2(0, 20)
-color = Color(0.7607843, 0, 0, 1)
-start_weight = 1.5
-
-[node name="start" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft/Rope2" unique_id=1729902947]
-position = Vector2(61, 48.999992)
-
-[node name="end" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft/Rope2" unique_id=285331445]
-position = Vector2(139.99998, 9.0000105)
-
-[node name="Rope3" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft" unique_id=43546226 node_paths=PackedStringArray("start_node", "end_node")]
-script = ExtResource("9_fjvrt")
-start_node = NodePath("start")
-pin_start_node = 0
-end_node = NodePath("end")
-pin_end_node = 0
-rope_segments = 12
-target_segment_length = 3.0
-constraint_iterations = 2
-gravity = Vector2(0, 20)
-color = Color(0.7607843, 0, 0, 1)
-start_weight = 1.5
-
-[node name="start" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft/Rope3" unique_id=2042450398]
-position = Vector2(58.000008, 17)
-
-[node name="end" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentLeft/Rope3" unique_id=1219330284]
-position = Vector2(105.999985, 53)
-
-[node name="IntentRight" type="TextureRect" parent="CenterContainer/PanelContainer/Bg" unique_id=2001023950]
-use_parent_material = true
-layout_mode = 0
-offset_left = 689.0
+offset_left = 690.0
 offset_top = 288.0
-offset_right = 769.0
+offset_right = 770.0
 offset_bottom = 368.0
-texture = ExtResource("7_tr0op")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Bg/IntentRight" unique_id=1091104061]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 17.000008
-offset_right = 65.0
-offset_bottom = 64.00001
-theme = ExtResource("2_l20lt")
-theme_type_variation = &"Label_Alkhemikal"
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/line_spacing = -4
-theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 24
-text = "walk
+check_when_run = true
+display_text = "walk
 right"
-horizontal_alignment = 1
-
-[node name="TextureRect" type="TextureButton" parent="CenterContainer/PanelContainer/Bg/IntentRight" unique_id=305195073]
-use_parent_material = true
-layout_mode = 0
-offset_left = -28.000006
-offset_top = 17.999992
-offset_right = 21.999994
-offset_bottom = 61.999992
-texture_normal = ExtResource("8_fjvrt")
-texture_hover = ExtResource("9_0mwwc")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Rope" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight" unique_id=802447831 node_paths=PackedStringArray("start_node", "end_node")]
-script = ExtResource("9_fjvrt")
-start_node = NodePath("start")
-pin_start_node = 0
-end_node = NodePath("end")
-pin_end_node = 0
-rope_segments = 16
-target_segment_length = 3.0
-constraint_iterations = 2
-gravity = Vector2(0, 20)
-color = Color(0.7607843, 0, 0, 1)
-start_weight = 1.5
-
-[node name="start" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight/Rope" unique_id=2122978605]
-use_parent_material = true
-position = Vector2(54.999996, 57.00001)
-
-[node name="end" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight/Rope" unique_id=1907654808]
-use_parent_material = true
-position = Vector2(153, -6.9999895)
-
-[node name="Rope2" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight" unique_id=282332987 node_paths=PackedStringArray("start_node", "end_node")]
-script = ExtResource("9_fjvrt")
-start_node = NodePath("start")
-pin_start_node = 0
-end_node = NodePath("end")
-pin_end_node = 0
-rope_segments = 25
-target_segment_length = 3.0
-constraint_iterations = 2
-gravity = Vector2(0, 20)
-color = Color(0.7607843, 0, 0, 1)
-start_weight = 1.5
-
-[node name="start" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight/Rope2" unique_id=1450992024]
-use_parent_material = true
-position = Vector2(61, 48.999992)
-
-[node name="end" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight/Rope2" unique_id=1356355201]
-use_parent_material = true
-position = Vector2(139.99998, 9.0000105)
-
-[node name="Rope3" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight" unique_id=198077639 node_paths=PackedStringArray("start_node", "end_node")]
-script = ExtResource("9_fjvrt")
-start_node = NodePath("start")
-pin_start_node = 0
-end_node = NodePath("end")
-pin_end_node = 0
-rope_segments = 12
-target_segment_length = 3.0
-constraint_iterations = 2
-gravity = Vector2(0, 20)
-color = Color(0.7607843, 0, 0, 1)
-start_weight = 1.5
-
-[node name="start" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight/Rope3" unique_id=351448564]
-use_parent_material = true
-position = Vector2(58.000008, 17)
-
-[node name="end" type="Node2D" parent="CenterContainer/PanelContainer/Bg/IntentRight/Rope3" unique_id=217035301]
-use_parent_material = true
-position = Vector2(105.999985, 53)
+cable_start_arc_min_angle = 0.2
+cable_start_arc_max_angle = 2.8
+cable_end_point_a = Vector2(-41, 38)
+cable_end_point_b = Vector2(-80, -24)
 
 [node name="Keybinds" type="Node2D" parent="CenterContainer/PanelContainer/Bg" unique_id=1834404590 node_paths=PackedStringArray("background", "keybinds")]
 script = ExtResource("9_rtthv")

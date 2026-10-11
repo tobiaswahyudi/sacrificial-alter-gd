@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://drk28j0dy0xln"]
+
+[ext_resource type="Texture2D" uid="uid://f6f6rjk1igks" path="res://img/placeholder/intent-meatball.png" id="1_rwlt2"]
+[ext_resource type="Script" uid="uid://c3nxdpfx5ftpb" path="res://ui/rebind/intent.gd" id="2_45i7j"]
+[ext_resource type="Theme" uid="uid://i6mkatjqw0d3" path="res://ui_theme.tres" id="2_ylx7i"]
+[ext_resource type="Texture2D" uid="uid://d1sljj7u0w7j" path="res://img/placeholder/red-f.png" id="3_45i7j"]
+[ext_resource type="Texture2D" uid="uid://bwbewvm6wrkuf" path="res://img/placeholder/red-f-o.png" id="4_e4chy"]
+
+[node name="IntentLeft" type="TextureRect" unique_id=435368321]
+use_parent_material = true
+offset_right = 80.0
+offset_bottom = 80.0
+pivot_offset_ratio = Vector2(0.54, 0.48)
+texture = ExtResource("1_rwlt2")
+expand_mode = 3
+stretch_mode = 5
+script = ExtResource("2_45i7j")
+check_when_run = false
+display_text = "walk
+left"
+cable_start_arc_radius = 28.0
+cable_start_arc_max_angle = 3.14
+cable_end_point_a = Vector2(100, 100)
+cable_end_point_b = Vector2(150, 60)
+cable_segments_min = 12
+cable_segments_max = 24
+
+[node name="Label" type="Label" parent="." unique_id=1758829162]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 17.000008
+offset_right = 65.0
+offset_bottom = 64.00001
+theme = ExtResource("2_ylx7i")
+theme_type_variation = &"Label_Alkhemikal"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -4
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 24
+text = "walk
+left"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureButton" parent="." unique_id=1127692660]
+use_parent_material = true
+layout_mode = 0
+offset_left = -28.000006
+offset_top = 17.999992
+offset_right = 21.999994
+offset_bottom = 61.999992
+texture_normal = ExtResource("3_45i7j")
+texture_hover = ExtResource("4_e4chy")
+ignore_texture_size = true
+stretch_mode = 5

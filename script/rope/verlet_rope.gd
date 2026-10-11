@@ -1,21 +1,29 @@
+@tool
 extends Node2D
+
+class_name VerletRope
+
+@export var check_when_run: bool = true;
+
+static var PIN_YES: int = 0;
+static var PIN_NO: int = 1;
 
 @export_group("Nodes")
 @export_subgroup("Start Node")
 @export var start_node: Node2D
-@export_enum("Yes", "No") var pin_start_node: int = 1
+@export_enum("Yes", "No") var pin_start_node: int
 @export_subgroup("End Node")
 @export var end_node: Node2D
-@export_enum("Yes", "No") var pin_end_node: int = 1
+@export_enum("Yes", "No") var pin_end_node: int
 
 @export_group("Rope")
-@export var rope_segments: int
-@export var target_segment_length: float
+@export var rope_segments: int = 20;
+@export var target_segment_length: float = 2.0;
 var segment_length: float
-@export var constraint_iterations: int
-@export var gravity: Vector2
+@export var constraint_iterations: int = 2;
+@export var gravity: Vector2 = Vector2(0.0, 20.0);
 # makes sense for UI
-@export_range(0.0, 1.0) var velocity_dampen: float = 0.0
+@export_range(0.0, 1.0) var velocity_dampen: float = 0.03;
 var vel_dampen_actual;
 
 @export_group("Display")
@@ -24,8 +32,28 @@ var vel_dampen_actual;
 @export var end_weight: float
 @export_enum("Linear", "Stretch") var weight_interp: int;
 
+@export_group("")
+@export_tool_button("Reload!") var b = _ready
+
 var old_pos: Array[Vector2];
 var cur_pos: Array[Vector2];
+
+func _init(
+	_start_node: Node2D = null,
+	_pin_start_node: int = PIN_YES,
+	_end_node: Node2D = null,
+	_pin_end_node: int = PIN_YES,
+	_color: Color = Color.AQUA,
+	_weight: float = 2.0
+) -> void:
+	if(_start_node != null):
+		self.start_node = _start_node
+	self.pin_start_node = _pin_start_node
+	if(_start_node != null):
+		self.end_node = _end_node
+	self.pin_end_node = _pin_end_node
+	self.color = _color
+	self.start_weight = _weight
 
 func _ready() -> void:
 	vel_dampen_actual = 1.0 - velocity_dampen;
@@ -91,9 +119,9 @@ func _process(delta: float) -> void:
 	for i in range(constraint_iterations):
 		constraint_relax_one_iter();
 
-	if (pin_start_node == 1):
+	if (check_when_run and pin_start_node == 1):
 		start_node.position = cur_pos[0]
-	if (pin_end_node == 1):
+	if (check_when_run and pin_end_node == 1):
 		end_node.position = cur_pos[rope_segments]
 
 	queue_redraw()
