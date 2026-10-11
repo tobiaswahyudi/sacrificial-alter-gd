@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://crjjiww77kyy5"]
 
 [ext_resource type="Shader" uid="uid://csy43qh0xn4j6" path="res://shader/burn_in.gdshader" id="1_c0vyv"]
+[ext_resource type="Script" uid="uid://capd1qdn6j48h" path="res://ui/rebinder.gd" id="1_tr0op"]
 [ext_resource type="Theme" uid="uid://i6mkatjqw0d3" path="res://ui_theme.tres" id="2_l20lt"]
 [ext_resource type="Texture2D" uid="uid://b4luprrea813p" path="res://img/placeholder/altar-stone.png" id="3_fjvrt"]
 [ext_resource type="Texture2D" uid="uid://cmqenc3sgihlk" path="res://img/placeholder/frogman.png" id="4_47o2f"]
@@ -31,6 +32,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PanelContainer/Bg/VizMask:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_l20lt"]
 resource_name = "in"
@@ -47,6 +60,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 0.85]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PanelContainer/Bg/VizMask:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.66, 0.86, 1.5),
+"transitions": PackedFloat32Array(1, 4.594789, 0.4352752, 1),
+"update": 0,
+"values": [Color(0.6784314, 0.13333333, 0.19607842, 0), Color(0.6784314, 0.13333334, 0.19607843, 0), Color(1, 0.13333334, 0.19607843, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_eoey2"]
 resource_name = "out"
@@ -62,6 +87,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(2.5, 1),
 "update": 0,
 "values": [0.8, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PanelContainer/Bg/VizMask:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.76000786, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.6784314, 0.13333333, 0.19607842, 0), Color(0.6784314, 0.13333333, 0.19607842, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eoey2"]
@@ -85,6 +122,7 @@ offset_right = -576.0
 offset_bottom = -324.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_tr0op")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=797500493]
 z_index = 9
@@ -114,17 +152,24 @@ layout_mode = 2
 texture_normal = ExtResource("3_fjvrt")
 stretch_mode = 6
 
-[node name="FrogMan" type="TextureRect" parent="CenterContainer/PanelContainer/Bg" unique_id=358822513]
-use_parent_material = true
+[node name="VizMask" type="Control" parent="CenterContainer/PanelContainer/Bg" unique_id=50670687]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FrogMan" type="TextureRect" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=358822513]
 layout_mode = 0
 offset_left = 378.63
 offset_top = 46.75
 offset_right = 1253.63
 offset_bottom = 1002.75
 scale = Vector2(0.45, 0.45)
+mouse_filter = 2
 texture = ExtResource("4_47o2f")
 
-[node name="IntentLeft" parent="CenterContainer/PanelContainer/Bg" unique_id=435368321 instance=ExtResource("5_axhwi")]
+[node name="IntentLeft" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=435368321 instance=ExtResource("5_axhwi")]
+use_parent_material = false
 layout_mode = 0
 offset_left = 390.0
 offset_top = 286.0
@@ -136,7 +181,8 @@ cable_start_arc_max_angle = 1.4
 cable_end_point_a = Vector2(125, 38)
 cable_end_point_b = Vector2(173, -16)
 
-[node name="IntentRight" parent="CenterContainer/PanelContainer/Bg" unique_id=1546523203 instance=ExtResource("5_axhwi")]
+[node name="IntentRight" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=1546523203 instance=ExtResource("5_axhwi")]
+use_parent_material = false
 layout_mode = 0
 offset_left = 690.0
 offset_top = 288.0
@@ -150,21 +196,20 @@ cable_start_arc_max_angle = 2.8
 cable_end_point_a = Vector2(-41, 38)
 cable_end_point_b = Vector2(-80, -24)
 
-[node name="Keybinds" type="Node2D" parent="CenterContainer/PanelContainer/Bg" unique_id=1834404590 node_paths=PackedStringArray("background", "keybinds")]
+[node name="Keybinds" type="Node2D" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=1834404590 node_paths=PackedStringArray("background", "keybinds")]
 script = ExtResource("9_rtthv")
-background = NodePath("..")
+background = NodePath("../..")
 keybinds = [NodePath("AKey"), NodePath("DKey")]
 
-[node name="AKey" parent="CenterContainer/PanelContainer/Bg/Keybinds" unique_id=970145245 instance=ExtResource("9_axhwi")]
+[node name="AKey" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=970145245 instance=ExtResource("9_axhwi")]
 position = Vector2(44, 203)
 display_text = "A"
 
-[node name="DKey" parent="CenterContainer/PanelContainer/Bg/Keybinds" unique_id=979264057 instance=ExtResource("9_axhwi")]
+[node name="DKey" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=979264057 instance=ExtResource("9_axhwi")]
 position = Vector2(191, 328)
 display_text = "D"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1336215471]
 libraries/ = SubResource("AnimationLibrary_eoey2")
-autoplay = &"in"
 
 [node name="Node2D" type="Node2D" parent="." unique_id=212535127]

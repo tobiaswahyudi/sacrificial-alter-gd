@@ -47,7 +47,7 @@ func _ready() -> void:
 		var start_angle = angles[i];
 		var start_pos = Node2D.new();
 		start_pos.position = Vector2(cable_start_arc_radius, 0.0).rotated(start_angle) + get_combined_pivot_offset()
-		var cb_node = VerletRope.new(start_pos, VerletRope.PIN_YES, end_pos, VerletRope.PIN_YES, Color.DARK_RED, 2);
+		var cb_node = VerletRope.new(start_pos, VerletRope.PIN_YES, end_pos, VerletRope.PIN_YES, Color.DARK_RED, 2, Vector2(0.0, 20.0));
 		cb_node.rope_segments = randi_range(cable_segments_min, cable_segments_max);
 		cb_node.color = cb_node.color.darkened(randf_range(0.0, 0.8));
 		add_child(cb_node)

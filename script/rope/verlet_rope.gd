@@ -21,7 +21,7 @@ static var PIN_NO: int = 1;
 @export var target_segment_length: float = 2.0;
 var segment_length: float
 @export var constraint_iterations: int = 2;
-@export var gravity: Vector2 = Vector2(0.0, 20.0);
+@export var gravity: Vector2; # = Vector2(0.0, 20.0);
 # makes sense for UI
 @export_range(0.0, 1.0) var velocity_dampen: float = 0.03;
 var vel_dampen_actual;
@@ -40,20 +40,25 @@ var cur_pos: Array[Vector2];
 
 func _init(
 	_start_node: Node2D = null,
-	_pin_start_node: int = PIN_YES,
+	_pin_start_node: int = 2,
 	_end_node: Node2D = null,
-	_pin_end_node: int = PIN_YES,
+	_pin_end_node: int = 2,
 	_color: Color = Color.AQUA,
-	_weight: float = 2.0
+	_weight: float = 2.0,
+	_gravity: Vector2 = Vector2(0, 0)
 ) -> void:
-	if(_start_node != null):
+	if (_start_node != null):
 		self.start_node = _start_node
-	self.pin_start_node = _pin_start_node
-	if(_start_node != null):
+	if (_pin_start_node != 2):
+		self.pin_start_node = _pin_start_node
+	if (_end_node != null):
 		self.end_node = _end_node
-	self.pin_end_node = _pin_end_node
+	if (_pin_end_node != 2):
+		self.pin_end_node = _pin_end_node
 	self.color = _color
 	self.start_weight = _weight
+	if(_gravity.length() > 0.01):
+		self.gravity = _gravity;
 
 func _ready() -> void:
 	vel_dampen_actual = 1.0 - velocity_dampen;
@@ -119,9 +124,9 @@ func _process(delta: float) -> void:
 	for i in range(constraint_iterations):
 		constraint_relax_one_iter();
 
-	if (check_when_run and pin_start_node == 1):
+	if (pin_start_node == 1):
 		start_node.position = cur_pos[0]
-	if (check_when_run and pin_end_node == 1):
+	if (pin_end_node == 1):
 		end_node.position = cur_pos[rope_segments]
 
 	queue_redraw()
