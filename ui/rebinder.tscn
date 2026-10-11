@@ -7,7 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://cmqenc3sgihlk" path="res://img/placeholder/frogman.png" id="4_47o2f"]
 [ext_resource type="PackedScene" uid="uid://drk28j0dy0xln" path="res://ui/rebind/intent_ui.tscn" id="5_axhwi"]
 [ext_resource type="PackedScene" uid="uid://b5otefmuke7o5" path="res://ui/rebind/keybind_ui.tscn" id="9_axhwi"]
+[ext_resource type="Texture2D" uid="uid://droo0rhpgruj3" path="res://img/placeholder/stone_textures/16be80a0ac7abe0ed2b1a33ebb49eebd.jpg" id="9_jnohi"]
 [ext_resource type="Script" uid="uid://ctupypg801jaw" path="res://ui/rebind/keybinds_manager.gd" id="9_rtthv"]
+[ext_resource type="Texture2D" uid="uid://cq5mfwmyalhbr" path="res://img/placeholder/stone_textures/grunge-wall-texture_1194-6108.png" id="10_hg18g"]
+[ext_resource type="Script" uid="uid://bvqjc16tdowgy" path="res://ui/rebind/close_rebinder.gd" id="11_h7awe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q0jdk"]
 
@@ -157,6 +160,32 @@ modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="CloseButton" type="TextureButton" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=1377529728 node_paths=PackedStringArray("rebinder")]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 454.0
+offset_right = 558.0
+offset_bottom = 509.0
+texture_normal = ExtResource("9_jnohi")
+texture_hover = ExtResource("10_hg18g")
+ignore_texture_size = true
+stretch_mode = 6
+script = ExtResource("11_h7awe")
+rebinder = NodePath("../../../../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/PanelContainer/Bg/VizMask/CloseButton" unique_id=738347057]
+layout_mode = 0
+offset_right = 314.0
+offset_bottom = 55.0
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Bg/VizMask/CloseButton/CenterContainer" unique_id=1492354423]
+layout_mode = 2
+theme = ExtResource("2_l20lt")
+theme_type_variation = &"Label_Alkhemikal"
+theme_override_font_sizes/font_size = 36
+text = "I am perfect"
+horizontal_alignment = 1
 
 [node name="FrogMan" type="TextureRect" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=358822513]
 layout_mode = 0

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 RangeUtils="*uid://dwko4a74iif7k"
+GameState="*uid://cugqv3cjl71f8"
 
 [display]
 

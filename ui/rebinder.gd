@@ -10,9 +10,13 @@ class_name RebinderWindow
 var is_open: bool = false;
 
 func open():
+	if GameState.rebinder_modal_open:
+		return
 	animation_player.play("in");
 	is_open = true;
+	GameState.rebinder_modal_open = true;
 
 func close():
 	animation_player.play("out");
 	is_open = false;
+	GameState.rebinder_modal_open = false;

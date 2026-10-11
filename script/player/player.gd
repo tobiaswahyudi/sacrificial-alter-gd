@@ -1,8 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-@export var paused: bool = false
-
 @export_group("Movement")
 @export var SPEED: float = 300.0
 @export var GRAVITY: float = 900.0;
@@ -22,7 +20,7 @@ func _ready():
 	JUMP_SPEED = sqrt(JUMP_HEIGHT * GRAVITY * 2.0)
 
 func _physics_process(delta: float) -> void:
-	if paused:
+	if GameState.player_paralyzed:
 		return
 	var direction: float = Input.get_axis("ui_left", "ui_right")
 

@@ -44,7 +44,7 @@ func _init(
 	_end_node: Node2D = null,
 	_pin_end_node: int = 2,
 	_color: Color = Color.AQUA,
-	_weight: float = 2.0,
+	_weight: float = -1,
 	_gravity: Vector2 = Vector2(0, 0)
 ) -> void:
 	if (_start_node != null):
@@ -56,7 +56,8 @@ func _init(
 	if (_pin_end_node != 2):
 		self.pin_end_node = _pin_end_node
 	self.color = _color
-	self.start_weight = _weight
+	if(_weight >= 0):
+		self.start_weight = _weight
 	if(_gravity.length() > 0.01):
 		self.gravity = _gravity;
 
