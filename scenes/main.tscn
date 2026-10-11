@@ -238,11 +238,12 @@ texture = ExtResource("1_tefeu")
 region_enabled = true
 region_rect = Rect2(0, 0, 6000, 6000)
 
-[node name="Altar" type="Sprite2D" parent="." unique_id=1320644063 node_paths=PackedStringArray("player_area")]
+[node name="Altar" type="Sprite2D" parent="." unique_id=1320644063 node_paths=PackedStringArray("player_area", "rebinder_modal")]
 position = Vector2(743, 254)
 texture = ExtResource("3_tipki")
 script = ExtResource("4_choun")
 player_area = NodePath("../Player/InteractorArea")
+rebinder_modal = NodePath("../Player/Camera2D/Rebinder")
 
 [node name="Area2D" type="Area2D" parent="Altar" unique_id=1093778039]
 
@@ -339,16 +340,15 @@ shape = SubResource("CapsuleShape2D_tefeu")
 zoom = Vector2(1.2, 1.2)
 position_smoothing_enabled = true
 
+[node name="Rebinder" parent="Player/Camera2D" unique_id=1891972904 instance=ExtResource("11_ya4ey")]
+offset_left = -450.0
+offset_top = -300.0
+offset_right = -450.0
+offset_bottom = -300.0
+
 [node name="InteractorArea" type="Area2D" parent="Player" unique_id=636849392]
 
 [node name="InteractorAreaShape" type="CollisionShape2D" parent="Player/InteractorArea" unique_id=1765867629]
 visible = false
 position = Vector2(-2, -1)
 shape = SubResource("CapsuleShape2D_tefeu")
-
-[node name="Rebinder" parent="." unique_id=1891972904 instance=ExtResource("11_ya4ey")]
-visible = false
-offset_left = 295.0
-offset_top = 103.0
-offset_right = 295.0
-offset_bottom = 103.0

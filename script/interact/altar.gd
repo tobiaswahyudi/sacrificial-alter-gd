@@ -4,6 +4,7 @@ extends Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer;
 
 @export var player_area: Area2D;
+@export var rebinder_modal: RebinderWindow;
 
 var player_touching_me: bool = false;
 
@@ -27,3 +28,9 @@ func thing_leave(area: Area2D):
 
 func _process(delta: float) -> void:
 	pass
+
+func _input(event: InputEvent) -> void:
+	# Check for configured input map actions
+	if event.is_action_pressed("ui_accept"):
+		rebinder_modal.open();
+		
