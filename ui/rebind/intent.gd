@@ -51,7 +51,7 @@ func _ready() -> void:
 		cb_node.rope_segments = randi_range(cable_segments_min, cable_segments_max);
 		cb_node.color = cb_node.color.darkened(randf_range(0.0, 0.8));
 		add_child(cb_node)
-		move_child(cb_node, 0)
+		move_child(cb_node, 1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

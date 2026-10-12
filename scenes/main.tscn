@@ -180,7 +180,6 @@ position = Vector2(-2, -1)
 shape = SubResource("CapsuleShape2D_tefeu")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2128895630]
-visible = false
 zoom = Vector2(1.2, 1.2)
 position_smoothing_enabled = true
 

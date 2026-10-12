@@ -3,8 +3,6 @@ extends Node2D
 
 class_name VerletRope
 
-@export var check_when_run: bool = true;
-
 static var PIN_YES: int = 0;
 static var PIN_NO: int = 1;
 
