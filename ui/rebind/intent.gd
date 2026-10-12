@@ -1,6 +1,8 @@
 @tool
 extends TextureRect
 
+class_name IntentUI
+
 @export var check_when_run: bool = true;
 @export_group("Display")
 @export_multiline var display_text: String;
@@ -26,6 +28,8 @@ extends TextureRect
 
 @onready var label = $Label;
 var bubble_center: Vector2
+
+@onready var plug_button: TextureButton = $TextureRect;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

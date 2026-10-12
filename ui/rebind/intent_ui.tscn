@@ -39,7 +39,7 @@ theme_override_constants/line_spacing = -4
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 24
 text = "walk
-right"
+left"
 horizontal_alignment = 1
 vertical_alignment = 1
 

@@ -197,22 +197,23 @@ scale = Vector2(0.45, 0.45)
 mouse_filter = 2
 texture = ExtResource("4_47o2f")
 
-[node name="Keybinds" type="Node2D" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=1834404590 node_paths=PackedStringArray("background", "keybinds")]
+[node name="Keybinds" type="Node2D" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=1834404590 node_paths=PackedStringArray("background", "keybinds", "intents")]
 script = ExtResource("9_rtthv")
 background = NodePath("../..")
-keybinds = [NodePath("AKey"), NodePath("DKey")]
+keybinds = [NodePath("ui_left"), NodePath("ui_right")]
+intents = [NodePath("IntentLeft"), NodePath("IntentRight"), NodePath("IntentJump")]
+plug_offset = Vector2(5, 44)
 
-[node name="AKey" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=970145245 instance=ExtResource("9_axhwi")]
+[node name="ui_left" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=970145245 instance=ExtResource("9_axhwi")]
 position = Vector2(44, 203)
 display_text = "A"
 
-[node name="DKey" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=979264057 instance=ExtResource("9_axhwi")]
+[node name="ui_right" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=979264057 instance=ExtResource("9_axhwi")]
 position = Vector2(191, 328)
 display_text = "D"
 
-[node name="IntentLeft" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=435368321 instance=ExtResource("5_axhwi")]
+[node name="IntentLeft" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=435368321 instance=ExtResource("5_axhwi")]
 use_parent_material = false
-layout_mode = 0
 offset_left = 390.0
 offset_top = 287.0
 offset_right = 470.0
@@ -223,9 +224,8 @@ cable_start_arc_max_angle = 1.4
 cable_end_point_a = Vector2(125, 38)
 cable_end_point_b = Vector2(173, -16)
 
-[node name="IntentRight" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=1546523203 instance=ExtResource("5_axhwi")]
+[node name="IntentRight" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=1546523203 instance=ExtResource("5_axhwi")]
 use_parent_material = false
-layout_mode = 0
 offset_left = 691.0
 offset_top = 290.0
 offset_right = 771.0
@@ -238,9 +238,8 @@ cable_start_arc_max_angle = 2.8
 cable_end_point_a = Vector2(-41, 38)
 cable_end_point_b = Vector2(-80, -24)
 
-[node name="IntentJump" parent="CenterContainer/PanelContainer/Bg/VizMask" unique_id=2080115404 instance=ExtResource("5_axhwi")]
+[node name="IntentJump" parent="CenterContainer/PanelContainer/Bg/VizMask/Keybinds" unique_id=2080115404 instance=ExtResource("5_axhwi")]
 use_parent_material = false
-layout_mode = 0
 offset_left = 541.0
 offset_top = 406.0
 offset_right = 621.0
@@ -254,5 +253,3 @@ cable_end_point_b = Vector2(12, -140)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1336215471]
 libraries/ = SubResource("AnimationLibrary_eoey2")
-
-[node name="Node2D" type="Node2D" parent="." unique_id=212535127]
