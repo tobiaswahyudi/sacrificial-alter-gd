@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dlmt8arux5sno" path="res://img/placeholder/meat-edges.png" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://blh81ys6borur" path="res://script/player/player.gd" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dp0swuqergo6q" path="res://interactable/altar.tscn" id="6_85g3d"]
+[ext_resource type="Script" uid="uid://co0eyt7alg5oe" path="res://ui/bind_minimap.gd" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://crjjiww77kyy5" path="res://ui/rebinder.tscn" id="11_ya4ey"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
@@ -189,6 +190,20 @@ offset_left = -450.0
 offset_top = -300.0
 offset_right = -450.0
 offset_bottom = -300.0
+
+[node name="BindMinimap" type="Control" parent="Player/Camera2D" unique_id=1489607259]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -354.0
+offset_top = -259.0
+offset_right = -314.0
+offset_bottom = -219.0
+script = ExtResource("10_choun")
+margin = 10.0
+box_size = 40.0
+box_line_weight = 2.0
+font_size = 12.0
+cable_line_weight = 2.0
 
 [node name="InteractorArea" type="Area2D" parent="Player" unique_id=636849392]
 

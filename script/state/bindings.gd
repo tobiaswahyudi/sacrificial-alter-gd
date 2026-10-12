@@ -5,19 +5,44 @@ var KB_LEFT = "ui_left";
 var KB_RIGHT = "ui_right";
 var KB_UP = "ui_up";
 
+var BINDS = [
+	KB_RIGHT,
+	KB_UP,
+	KB_LEFT
+]
+
 var I_LEFT = "intent_left";
 var I_RIGHT = "intent_right";
 var I_UP = "intent_up";
+
+var INTENTS = [
+	I_RIGHT,
+	I_UP,
+	I_LEFT
+]
+
+var STRINGS: Dictionary[String, String] = {
+	KB_LEFT: "A",
+	KB_RIGHT: "D",
+	KB_UP: "W",
+	I_LEFT: "walk\nleft",
+	I_RIGHT: "walk\nright",
+	I_UP: "jump",
+}
 
 var keybind_nodes: Dictionary[String, KeyBindNode] = {}
 
 var intent_nodes: Dictionary[String, IntentNode] = {}
 
+var nodes: Dictionary[String, BindNode] = {}
+
 class BindNode:
+	var name: String
 	var inputs: Array[BindNode]
 	var outputs: Array[BindNode]
 
-	func _init() -> void:
+	func _init(p_name: String) -> void:
+		name = p_name
 		inputs = []
 		outputs = []
 
@@ -35,12 +60,10 @@ class BindNode:
 		rhs.inputs.append(self)
 
 class KeyBindNode extends BindNode:
-	var bind_name: String
 	var key_pressed: bool
 
 	func _init(p_bind_name: String) -> void:
-		super()
-		bind_name = p_bind_name
+		super(p_bind_name)
 
 	func trigger_on(timestamp: int, actor: String):
 		if(key_pressed):
@@ -48,7 +71,7 @@ class KeyBindNode extends BindNode:
 			return
 		key_pressed = true;
 		for o in outputs:
-			o.trigger_on(timestamp, bind_name)
+			o.trigger_on(timestamp, name)
 
 	func trigger_off(timestamp: int, actor: String):
 		if(not key_pressed):
@@ -56,18 +79,16 @@ class KeyBindNode extends BindNode:
 			return
 		key_pressed = false;
 		for o in outputs:
-			o.trigger_off(timestamp, bind_name)
+			o.trigger_off(timestamp, name)
 
 	func is_firing() -> bool:
 		return key_pressed;
 
 class IntentNode extends BindNode:
-	var intent_name: String
 	var firing: bool
 
 	func _init(p_intent_name: String) -> void:
-		super()
-		intent_name = p_intent_name
+		super(p_intent_name)
 
 	func trigger_on(timestamp: int, actor: String):
 		firing = true;
@@ -95,15 +116,21 @@ func _ready() -> void:
 	intent_nodes[I_RIGHT] = i_right
 	intent_nodes[I_UP] = i_up
 
+	# Push all nodes from keybind and intent into nodes
+	for b_name in keybind_nodes:
+		nodes[b_name] = keybind_nodes[b_name]
+	for b_name in intent_nodes:
+		nodes[b_name] = intent_nodes[b_name]
+
 	kb_left.connect_output(i_left)
 	kb_right.connect_output(i_right)
-	kb_up.connect_output(i_up)
+	# kb_up.connect_output(i_up)
 
 func _process(_delta: float) -> void:
 	var timestamp = Time.get_ticks_msec()
 	for key in keybind_nodes:
 		var kb = keybind_nodes[key]
-		if Input.get_action_strength(kb.bind_name) > 0.9:
+		if Input.get_action_strength(kb.name) > 0.9:
 			kb.trigger_on(timestamp, "System");
 		else:
 			kb.trigger_off(timestamp, "System");
