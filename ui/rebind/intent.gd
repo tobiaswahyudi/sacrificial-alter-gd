@@ -36,9 +36,6 @@ func _ready() -> void:
 	var angles = RangeUtils.scattershot(cable_start_arc_max_angle, cables_count, cable_start_arc_min_angle);
 	var anchors = RangeUtils.scattershot(1.0, cables_count);
 
-	print(angles)
-	print(anchors)
-
 	var b_min_a = cable_end_point_b - cable_end_point_a
 	for i in range(cables_count):
 		var end_pos = Node2D.new()
