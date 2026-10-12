@@ -15,12 +15,12 @@ class_name KeybindUI
 @onready var plug_button: TextureButton = $PlugButton;
 @onready var label = $AKey/Label;
 
-var plug_rope_gravity: Vector2
+var plug_rope_base_gravity: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	label.text = display_text
-	plug_rope_gravity = plug_rope.gravity
+	plug_rope_base_gravity = plug_rope.gravity
 	set_active(false)
 
 var is_active: bool = false;
@@ -37,7 +37,7 @@ func cable_floppy():
 
 func cable_upright():
 	plug_mouse_anchor.enable_follow = true;
-	plug_rope.gravity = plug_rope_gravity
+	plug_rope.gravity = plug_rope_base_gravity
 	cable_rope.pin_end_node = 0;
 	cable_rope.pin_end_node = 0;
 	plug_rope.pin_start_node = 1;
@@ -56,6 +56,7 @@ func set_plugged(location: Vector2 = Vector2.ZERO):
 	is_plugged = true
 	cable_upright();
 	is_active = false;
+	plug_rope.gravity = plug_rope_base_gravity * 2.0
 	plug_rope.pin_end_node = 0;
 	plug_mouse_anchor.enable_follow = false;
 	plug_mouse_anchor.global_position = location;
