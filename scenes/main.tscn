@@ -183,6 +183,7 @@ shape = SubResource("CapsuleShape2D_tefeu")
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2128895630]
 zoom = Vector2(1.2, 1.2)
 position_smoothing_enabled = true
+position_smoothing_speed = 8.0
 
 [node name="Rebinder" parent="Player/Camera2D" unique_id=1891972904 instance=ExtResource("11_ya4ey")]
 z_index = 10

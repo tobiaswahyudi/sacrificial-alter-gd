@@ -53,6 +53,7 @@ func regenerate_nodes():
 
 func _ready() -> void:
 	regenerate_nodes()
+	Bindings.bind_altered.connect(regenerate_nodes);
 	# should also connect a signal on the bindings singleton to regenerate_nodes
 
 func _process(delta: float) -> void:

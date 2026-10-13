@@ -36,6 +36,9 @@ var intent_nodes: Dictionary[String, IntentNode] = {}
 
 var nodes: Dictionary[String, BindNode] = {}
 
+@warning_ignore("UNUSED_SIGNAL")
+signal bind_altered();
+
 class BindNode:
 	var name: String
 	var inputs: Array[BindNode]
