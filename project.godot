@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 RangeUtils="*uid://dwko4a74iif7k"
 GameState="*uid://cugqv3cjl71f8"
 Bindings="*uid://pxsbit2e37ke"
+Doubletap="*uid://cnef4si21dthx"
 
 [display]
 

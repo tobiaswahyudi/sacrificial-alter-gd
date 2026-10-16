@@ -14,11 +14,13 @@ var BINDS = [
 var I_LEFT = "intent_left";
 var I_RIGHT = "intent_right";
 var I_UP = "intent_up";
+var I_SLIDE_RIGHT = "intent_left"
 
 var INTENTS = [
 	I_RIGHT,
 	I_UP,
-	I_LEFT
+	I_LEFT,
+	I_SLIDE_RIGHT
 ]
 
 var STRINGS: Dictionary[String, String] = {
@@ -28,6 +30,8 @@ var STRINGS: Dictionary[String, String] = {
 	I_LEFT: "walk\nleft",
 	I_RIGHT: "walk\nright",
 	I_UP: "jump",
+	I_SLIDE_RIGHT: "slide\nright",
+	"Doubletap_": "double\ntap"
 }
 
 var keybind_nodes: Dictionary[String, KeyBindNode] = {}
@@ -39,15 +43,28 @@ var nodes: Dictionary[String, BindNode] = {}
 @warning_ignore("UNUSED_SIGNAL")
 signal bind_altered();
 
+enum PortType {
+	Trs, Usb, Worm, Neuron
+};
+
+class BindPort:
+	var name: String
+	var type: PortType
+	var bound: BindNode
+	func _init(p_name: String, p_type: PortType) -> void:
+		name = p_name
+		type = p_type
+		bound = null
+
 class BindNode:
 	var name: String
-	var inputs: Array[BindNode]
-	var outputs: Array[BindNode]
+	var inputs: Array[BindPort]
+	var outputs: Array[BindPort]
 
 	func _init(p_name: String) -> void:
 		name = p_name
 		inputs = []
-		outputs = []
+		outputs = [BindPort.new("default", PortType.Usb)]
 
 	func is_firing() -> bool:
 		return false;
@@ -58,8 +75,8 @@ class BindNode:
 	func trigger_off(timestamp: int, actor: String):
 		pass
 
-	func connect_output(rhs: BindNode):
-		self.outputs.append(rhs)
+	func connect_output(index: int, rhs: BindNode):
+		self.outputs[index].bound = rhs
 		rhs.inputs.append(self)
 
 class KeyBindNode extends BindNode:
@@ -74,7 +91,8 @@ class KeyBindNode extends BindNode:
 			return
 		key_pressed = true;
 		for o in outputs:
-			o.trigger_on(timestamp, name)
+			if o.bound != null:
+				o.bound.trigger_on(timestamp, name)
 
 	func trigger_off(timestamp: int, actor: String):
 		if(not key_pressed):
@@ -82,7 +100,8 @@ class KeyBindNode extends BindNode:
 			return
 		key_pressed = false;
 		for o in outputs:
-			o.trigger_off(timestamp, name)
+			if o.bound != null:
+				o.bound.trigger_off(timestamp, name)
 
 	func is_firing() -> bool:
 		return key_pressed;
@@ -102,31 +121,33 @@ class IntentNode extends BindNode:
 	func is_firing() -> bool:
 		return firing;
 
+class BindModule extends BindNode:
+	# Modules need to keep input/outputs ordered
+	func _init(p_name: String) -> void:
+		super(p_name)
+
+func register_node(node: BindNode):
+	nodes[node.name] = node
+
 func _ready() -> void:
-	var kb_left = KeyBindNode.new(KB_LEFT)
-	var kb_right = KeyBindNode.new(KB_RIGHT)
-	var kb_up = KeyBindNode.new(KB_UP)
+	for bind in BINDS:
+		var node = KeyBindNode.new(bind)
+		keybind_nodes[bind] = node
+		register_node(node)
 
-	keybind_nodes[KB_LEFT] = kb_left
-	keybind_nodes[KB_RIGHT] = kb_right
-	keybind_nodes[KB_UP] = kb_up
+	for intent in INTENTS:
+		var node = IntentNode.new(intent)
+		intent_nodes[intent] = node
+		register_node(node)
+	
+	keybind_nodes[KB_LEFT].connect_output(0, intent_nodes[I_LEFT])
+	keybind_nodes[KB_RIGHT].connect_output(0, intent_nodes[I_RIGHT])
 
-	var i_left = IntentNode.new(I_LEFT)
-	var i_right = IntentNode.new(I_RIGHT)
-	var i_up = IntentNode.new(I_UP)
+	var dbt_module = DoubleTapModule.new("")
+	register_node(dbt_module)
 
-	intent_nodes[I_LEFT] = i_left
-	intent_nodes[I_RIGHT] = i_right
-	intent_nodes[I_UP] = i_up
-
-	# Push all nodes from keybind and intent into nodes
-	for b_name in keybind_nodes:
-		nodes[b_name] = keybind_nodes[b_name]
-	for b_name in intent_nodes:
-		nodes[b_name] = intent_nodes[b_name]
-
-	kb_left.connect_output(i_left)
-	kb_right.connect_output(i_right)
+	keybind_nodes[KB_UP].connect_output(0, dbt_module)
+	dbt_module.connect_output(0, intent_nodes[I_UP])
 	# kb_up.connect_output(i_up)
 
 func _process(_delta: float) -> void:

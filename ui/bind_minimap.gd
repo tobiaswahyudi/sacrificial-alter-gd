@@ -1,7 +1,8 @@
 @tool
 extends Control
 
-@export var margin: float;
+@export var x_margin: float;
+@export var y_margin: float;
 
 @export var box_size: float;
 @export var box_line_weight: float;
@@ -28,28 +29,57 @@ var connections: Array[StringPair] = []
 
 ###################
 
-
+# directed cycles forbidden !!!!!!
+	# or, like we figure it out later
+func dfs(node_depths: Dictionary[String, int], node_names: Array[String], node: Bindings.BindNode, depth: int):
+	if not (node.name in node_names):
+		node_names.append(node.name)
+	if node.name in node_depths:
+		if node_depths[node.name] >= depth:
+			# Good, it's at at or lower than where it needs to be
+			return
+	node_depths[node.name] = depth
+	for output_node in node.outputs:
+		if output_node.bound == null:
+			return
+		dfs(node_depths, node_names, output_node.bound, depth + 1)
 
 # When the bind is changed at all, the UI needs to rediscover all connected modules and sort them in order.
 func regenerate_nodes():
+	var node_depths: Dictionary[String, int] = {}
 	draw_positions = {};
 	connections = [];
 
 	for idx in range(len(Bindings.BINDS)):
 		var bind_name = Bindings.BINDS[idx]
-		draw_positions[bind_name] = Vector2i(idx + 1, 0)
-		all_names.append(bind_name)
+		var bind_ui = Bindings.keybind_nodes[bind_name]
+		dfs(node_depths, all_names, bind_ui, 0)
 
-	for idx in range(len(Bindings.INTENTS)):
-		var intent_name = Bindings.INTENTS[idx]
-		draw_positions[intent_name] = Vector2i(idx + 1, 2)
-		all_names.append(intent_name)
+	var heights = [1,1,1,1,1,1,1,1,1]
+
+	for name in all_names:
+		var depth = node_depths[name]
+		var xpos = heights[depth]
+		heights[depth] += 1
+		draw_positions[name] = Vector2i(xpos, depth)
+
+	# for idx in range(len(Bindings.BINDS)):
+	# 	var bind_name = Bindings.BINDS[idx]
+	# 	draw_positions[bind_name] = Vector2i(idx + 1, 0)
+	# 	all_names.append(bind_name)
+
+	# for idx in range(len(Bindings.INTENTS)):
+	# 	var intent_name = Bindings.INTENTS[idx]
+	# 	draw_positions[intent_name] = Vector2i(idx + 1, 2)
+	# 	all_names.append(intent_name)
 
 	# For now there's no modules, so all connections come from keybinds. That's nice and easy
-	for bind_name in Bindings.BINDS:
-		var bind_ui = Bindings.keybind_nodes[bind_name]
+	for bind_name in all_names:
+		var bind_ui = Bindings.nodes[bind_name]
 		for output_node in bind_ui.outputs:
-			connections.append(StringPair.new(bind_name, output_node.name))
+			if output_node.bound != null:
+				print("Adding connection from ",bind_name, " to ", output_node.bound.name)
+				connections.append(StringPair.new(bind_name, output_node.bound.name))
 
 func _ready() -> void:
 	regenerate_nodes()
@@ -60,13 +90,13 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func calc_col_left(i: float) -> float:
-	return margin -i * (box_size + margin)
+	return x_margin -i * (box_size + x_margin)
 
 func calc_col_middle(i: float) -> float:
-	return margin -i * (box_size + margin) + (box_size * 0.5)
+	return x_margin -i * (box_size + x_margin) + (box_size * 0.5)
 
 func calc_row_top(i: float) -> float:
-	return i * (box_size + margin)
+	return i * (box_size + y_margin)
 
 func calc_row_bottom(i: float) -> float:
 	return calc_row_top(i) + box_size
