@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cxtq4grdm35j"]
+
+[ext_resource type="Script" uid="uid://bsmpbegr2tatc" path="res://ui/bodies-status/body_status_entry.gd" id="1_kua11"]
+[ext_resource type="Texture2D" uid="uid://dj06vvk1hafxq" path="res://img/ui/kenney_ui-pack-space-expansion (1)/PNG/Extra/Default/panel_glass_screws.png" id="1_ylrq6"]
+[ext_resource type="Texture2D" uid="uid://ptabdoe23v0y" path="res://img/placeholder/lem.png" id="2_m8r0a"]
+[ext_resource type="Texture2D" uid="uid://b5eugmsqdae0d" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_1.png" id="3_kua11"]
+[ext_resource type="Texture2D" uid="uid://bp6seo10bjpme" path="res://img/ui/bloodsplat.png" id="4_7u5sn"]
+
+[node name="Entry" type="HBoxContainer" unique_id=1782396749]
+script = ExtResource("1_kua11")
+key_number = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1531216396]
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CenterContainer" unique_id=1174972805]
+modulate = Color(0.85490197, 0.85490197, 0.85490197, 0.5019608)
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("1_ylrq6")
+
+[node name="Body" type="TextureRect" parent="CenterContainer" unique_id=1789740165]
+layout_mode = 2
+texture = ExtResource("2_m8r0a")
+
+[node name="Blood" type="TextureRect" parent="CenterContainer" unique_id=1961299089]
+visible = false
+modulate = Color(0.6431373, 0.3647059, 0.36078432, 0.7176471)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("4_7u5sn")
+
+[node name="Key" type="TextureRect" parent="." unique_id=1781672912]
+layout_mode = 2
+texture = ExtResource("3_kua11")
+stretch_mode = 3

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="KeySpriteList" format=3 uid="uid://c17r414yxwsq3"]
+
+[ext_resource type="Script" uid="uid://wgjw6dxq32e3" path="res://ui/util/key_sprites.gd" id="1_45t1b"]
+[ext_resource type="Texture2D" uid="uid://cb8jv4epjqprx" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_0.png" id="1_xe0nu"]
+[ext_resource type="Texture2D" uid="uid://b5eugmsqdae0d" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_1.png" id="2_sgyfb"]
+[ext_resource type="Texture2D" uid="uid://bdlgcauqkhxqu" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_2.png" id="3_7l7v4"]
+[ext_resource type="Texture2D" uid="uid://dsbs7srf0abg0" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_3.png" id="4_hw7j0"]
+[ext_resource type="Texture2D" uid="uid://dgr60l0crggss" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_4.png" id="5_c64k2"]
+[ext_resource type="Texture2D" uid="uid://b8080tqwq3unr" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_5.png" id="6_3i4e5"]
+[ext_resource type="Texture2D" uid="uid://0fg7n5uuy15j" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_0_outline.png" id="8_rm18i"]
+[ext_resource type="Texture2D" uid="uid://b0up4u0lmfm20" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_1_outline.png" id="9_h2gw2"]
+[ext_resource type="Texture2D" uid="uid://d1le84gpr6f2r" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_2_outline.png" id="10_mmpgd"]
+[ext_resource type="Texture2D" uid="uid://dv1suaygiak88" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_3_outline.png" id="11_h1fil"]
+[ext_resource type="Texture2D" uid="uid://lud1b35i2a2b" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_4_outline.png" id="12_qsgvm"]
+[ext_resource type="Texture2D" uid="uid://d0qiyjfruecbe" path="res://img/ui/kenney_input-prompts_1.5 (1)/Keyboard & Mouse/Default/keyboard_5_outline.png" id="13_3fiv2"]
+
+[resource]
+script = ExtResource("1_45t1b")
+list = Array[Texture2D]([ExtResource("1_xe0nu"), ExtResource("2_sgyfb"), ExtResource("3_7l7v4"), ExtResource("4_hw7j0"), ExtResource("5_c64k2"), ExtResource("6_3i4e5")])
+secondary = Array[Texture2D]([ExtResource("8_rm18i"), ExtResource("9_h2gw2"), ExtResource("10_mmpgd"), ExtResource("11_h1fil"), ExtResource("12_qsgvm"), ExtResource("13_3fiv2")])
