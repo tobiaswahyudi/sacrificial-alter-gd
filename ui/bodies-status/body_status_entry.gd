@@ -21,6 +21,8 @@ var body_sprite_mapping: BodySprites = preload("res://ui/util/body_sprites.tres"
 		update_appearances()
 
 func update_appearances():
+	if not is_node_ready():
+		return
 	blood_texture_rect.visible = used
 	body_texture_rect.texture = body_sprite_mapping.mapping.get(body_type)
 	key_texture_rect.texture = key_sprite_list.list[key_number]

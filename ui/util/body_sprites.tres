@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ptabdoe23v0y" path="res://img/placeholder/lem.png" id="1_d74v7"]
 [ext_resource type="Texture2D" uid="uid://duhswo5mkml1c" path="res://img/placeholder/frog.png" id="2_08kx6"]
+[ext_resource type="Texture2D" uid="uid://db4ow3yowrdhj" path="res://img/placeholder/lem-crawl.png" id="2_jjftp"]
 [ext_resource type="Texture2D" uid="uid://dv56eosridolx" path="res://img/placeholder/fish.png" id="3_jjftp"]
 [ext_resource type="Script" uid="uid://cvjv6r1ghpqan" path="res://ui/util/body_sprites.gd" id="4_jjftp"]
 
@@ -9,6 +10,7 @@
 script = ExtResource("4_jjftp")
 mapping = Dictionary[int, Texture2D]({
 0: ExtResource("1_d74v7"),
-1: ExtResource("2_08kx6"),
-2: ExtResource("3_jjftp")
+1: ExtResource("2_jjftp"),
+2: ExtResource("2_08kx6"),
+3: ExtResource("3_jjftp")
 })

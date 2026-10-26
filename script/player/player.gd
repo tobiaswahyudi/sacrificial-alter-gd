@@ -39,12 +39,8 @@ func _physics_process(delta: float) -> void:
 	if direction == 0:
 		do_move(MoveType.NotMoving)
 	else:
-		if direction < 0:
-			face_direction_left = true
-			sprite.scale.x = -1
-		else:
-			face_direction_left = false
-			sprite.scale.x = 1
+		face_direction_left = direction < 0
+		sprite.flip_h = face_direction_left
 		do_move(MOVE_TYPE)
 
 	if is_on_floor():

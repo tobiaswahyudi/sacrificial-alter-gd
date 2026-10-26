@@ -3,6 +3,7 @@ extends Resource
 
 enum BodyType {
 	Human,
+	CrawlHuman,
 	Frog,
 	Fish
 }
