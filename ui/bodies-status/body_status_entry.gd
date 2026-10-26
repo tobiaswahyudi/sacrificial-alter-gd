@@ -1,4 +1,5 @@
 @tool
+class_name BodyStatusEntry
 extends HBoxContainer
 
 var key_sprite_list: KeySpriteList = preload("res://ui/util/key_sprites.tres")
