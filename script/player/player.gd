@@ -130,17 +130,49 @@ class FrogMovement extends PlayerMovement:
 	var ANGLE_ROTATE_LIMIT = PI * 0.4
 
 	var LINE_LENGTH: float = 100.0
+	var is_on_wall: bool = false
+
+	var wall_grip_start_time: float = 0.0
+
+	var WALL_CLING_DELAY_MS = 200
+	var WALL_SLIDE_RAMP_MS = 250
+	var WALL_SLIDE_SPEED = 60.0
+
+	var WALL_JUMP_ANGLE = PI / 4
+
+	func launch():
+		var launch_vel = Vector2(0.0, -player.JUMP_SPEED).rotated(angle)
+		player.velocity = launch_vel
+		angle = 0
 
 	func move(delta: float, up: bool, dir: float) -> void:
+		var time_millis = Time.get_ticks_msec()
 		if player.is_on_floor():
 			player.velocity = Vector2()
 			angle += dir * ANGLE_ROTATE_SPEED * delta
 			angle = clampf(angle, -ANGLE_ROTATE_LIMIT, ANGLE_ROTATE_LIMIT)
 			if up:
-				var launch_vel = Vector2(0.0, -player.JUMP_SPEED).rotated(angle)
-				player.velocity = launch_vel
-				angle = 0
+				launch()
+			is_on_wall = false
+		elif player.is_on_wall_only():
+			if not is_on_wall:
+				wall_grip_start_time = time_millis
+				var player_collision = player.get_last_slide_collision()
+				var collision_normal = player_collision.get_normal()
+				angle = WALL_JUMP_ANGLE * collision_normal.x
+				is_on_wall = true
+			var cling_time = time_millis - wall_grip_start_time
+			var y_vel = 0
+			if cling_time > WALL_CLING_DELAY_MS + WALL_SLIDE_RAMP_MS:
+				y_vel = WALL_SLIDE_SPEED
+			elif cling_time > WALL_CLING_DELAY_MS:
+				y_vel = WALL_SLIDE_SPEED * (cling_time - WALL_CLING_DELAY_MS) / WALL_SLIDE_RAMP_MS
+			player.velocity.y = y_vel
+			if up:
+				launch()
 		else:
+			angle = 0
+			is_on_wall = false
 			player.velocity.y += player.GRAVITY * delta
 
 		if angle != 0:
