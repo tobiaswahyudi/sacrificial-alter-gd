@@ -1,74 +1,186 @@
 class_name Player
 extends CharacterBody2D
 
+# @export_group("Body")
+# BodySprites is 100% the wrong place for this enum. Sucks to be the solo dev i guess
+@export var body_type: BodySprites.BodyType
+
 @export_group("Verticals")
 @export var GRAVITY: float = 900.0;
 @export var JUMP_HEIGHT: float = 50.0;
 
 @export_group("Horizontals")
-@export var MOVE_TYPE: MoveType
 @export var WALK_SPEED: float = 300.0
 @export var CRAWL_SPEED: float = 150.0
 @export var CRAWL_HALF_PERIOD_MILLIS: int = 800
 
 @onready var sprite: AnimatedSprite2D = $Sprite
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+var move_controller: PlayerMovement
 
 var JUMP_SPEED: float
 
-var face_direction_left: bool = false
-var is_moving: bool = false
+# var face_direction_left: bool = false
+# var is_moving: bool = false
 
-enum MoveType {
-	NotMoving, Walk, Crawl
-}
+# var last_key_press_millis: int = 0
+# var move_type: MoveType = MoveType.Walk
 
-var last_key_press_millis: int = 0
-var move_type: MoveType = MoveType.Walk
+func change_body_type(target: BodySprites.BodyType):
+	if body_type == target:
+		return
+	body_type = target
+	match target:
+		BodySprites.BodyType.Human:
+			animation_player.play("walk")
+			move_controller = WalkMovement.new(self)
+		BodySprites.BodyType.CrawlHuman:
+			animation_player.play("crawl")
+			move_controller = CrawlMovement.new(self)
+		BodySprites.BodyType.Frog:
+			animation_player.play("frog")
+			move_controller = FrogMovement.new(self)
+		BodySprites.BodyType.Fish:
+			animation_player.play("fish")
+			move_controller = FishMovement.new(self)
+		
 
 func _ready():
 	# Max height is (v^2)/(2g); thus v = sqrt(2gh)
 	JUMP_SPEED = sqrt(JUMP_HEIGHT * GRAVITY * 2.0)
+	var actual_body_type = body_type
+	body_type = (body_type + 1) as BodySprites.BodyType # hehe
+	change_body_type(actual_body_type)
 
 func _physics_process(delta: float) -> void:
-	var time_millis = Time.get_ticks_msec()
-
 	if GameState.player_paralyzed:
 		return
-	var direction: float = Input.get_axis("ui_left", "ui_right")
 
-	if direction == 0:
-		do_move(MoveType.NotMoving)
-	else:
-		face_direction_left = direction < 0
-		sprite.flip_h = face_direction_left
-		do_move(MOVE_TYPE)
+	var up_pressed = Input.is_action_pressed("ui_up")
 
-	if is_on_floor():
-		if Input.is_action_pressed("ui_up"):
-			velocity.y = - JUMP_SPEED
-	else:
-		velocity.y += GRAVITY * delta
+	var h_dir: float = Input.get_axis("ui_left", "ui_right")
 
-	match move_type:
-		MoveType.NotMoving:
-			velocity.x = 0.0
-		MoveType.Walk:
-			velocity.x = direction * WALK_SPEED
-		MoveType.Crawl:
-			var immediate_speed = max(0, cos(float((time_millis - last_key_press_millis)) / CRAWL_HALF_PERIOD_MILLIS * PI))
-			# integral of max(0, cos x) [2 pi, 0] is 2
-			# thus average is 1/pi; so we mult by pi.
-			velocity.x = direction * immediate_speed * CRAWL_SPEED * PI
+	move_controller.move(delta, up_pressed, h_dir)
 
-	move_and_slide()
+func _draw() -> void:
+	move_controller.render()
 
-	if velocity.x < 0:
-		face_direction_left = true
-	elif velocity.x > 0:
-		face_direction_left = false
+class PlayerMovement:
+	var player: Player
+	func _init(p_player: Player) -> void:
+		player = p_player
 
-func do_move(target_type: MoveType):
-	var time_millis = Time.get_ticks_msec()
-	if move_type != target_type:
-		last_key_press_millis = time_millis
-	move_type = target_type
+	func move(_delta: float, _up: bool, _dir: float) -> void:
+		assert(false, "func move() in PlayerMovement must be overridden")
+	func render() -> void:
+		assert(false, "func render() in PlayerMovement must be overridden")
+
+class WalkMovement extends PlayerMovement:
+	func move(delta: float, up: bool, dir: float) -> void:
+		if player.is_on_floor():
+			if up:
+				player.velocity.y = - player.JUMP_SPEED
+		else:
+			player.velocity.y += player.GRAVITY * delta
+
+		player.velocity.x = dir * player.WALK_SPEED
+
+		if dir != 0:
+			player.sprite.flip_h = dir < 0
+		player.move_and_slide()
+
+	func render() -> void:
+		pass
+
+class CrawlMovement extends PlayerMovement:
+	var last_key_press_millis: float = 0
+	var is_moving: bool = false
+
+	func move(delta: float, up: bool, dir: float) -> void:
+		var time_millis = Time.get_ticks_msec()
+		if dir == 0:
+			is_moving = false
+		else:
+			if not is_moving:
+				last_key_press_millis = time_millis
+			is_moving = true
+		
+		if player.is_on_floor():
+			if up:
+				player.velocity.y = - player.JUMP_SPEED
+		else:
+			player.velocity.y += player.GRAVITY * delta
+
+		var immediate_speed = max(0, cos(float((time_millis - last_key_press_millis)) / player.CRAWL_HALF_PERIOD_MILLIS * PI))
+		# integral of max(0, cos x) [2 pi, 0] is 2
+		# thus average is 1/pi; so we mult by pi.
+		player.velocity.x = dir * immediate_speed * player.CRAWL_SPEED * PI
+		if dir != 0:
+			player.sprite.flip_h = dir < 0
+		player.move_and_slide()
+
+	func render() -> void:
+		pass
+
+class FrogMovement extends PlayerMovement:
+	var angle: float = false
+
+	var ANGLE_ROTATE_SPEED = 1.0
+	var ANGLE_ROTATE_LIMIT = PI * 0.4
+
+	var LINE_LENGTH: float = 100.0
+
+	func move(delta: float, up: bool, dir: float) -> void:
+		if player.is_on_floor():
+			player.velocity = Vector2()
+			angle += dir * ANGLE_ROTATE_SPEED * delta
+			angle = clampf(angle, -ANGLE_ROTATE_LIMIT, ANGLE_ROTATE_LIMIT)
+			if up:
+				var launch_vel = Vector2(0.0, -player.JUMP_SPEED).rotated(angle)
+				player.velocity = launch_vel
+				angle = 0
+		else:
+			player.velocity.y += player.GRAVITY * delta
+
+		if angle != 0:
+			player.sprite.flip_h = angle < 0
+		player.move_and_slide()
+		player.queue_redraw()
+
+	func render() -> void:
+		if angle == 0:
+			return
+		player.draw_line(Vector2(0, 0), Vector2(0, -LINE_LENGTH).rotated(angle), Color.RED, 2)
+
+class FishMovement extends PlayerMovement:
+	var launch_height: float = 0.0
+	var sprite_starting_rotation: float
+
+	var FLOP_ANGLE_LIMIT = 0.6
+	var FLOP_PER_MILLIS_FREQUENCY: float = 20.0 / 1000.0
+
+	var noise: Noise
+
+	func _init(p_player: Player) -> void:
+		super(p_player)
+		noise = FastNoiseLite.new()
+
+	func move(delta: float, up: bool, _dir: float) -> void:
+		var time_millis = Time.get_ticks_msec()
+
+		if player.is_on_floor():
+			player.velocity = Vector2()
+			if up:
+				sprite_starting_rotation = player.sprite.rotation
+				launch_height = player.position.y
+				var launch_vel = Vector2(0.0, -player.JUMP_SPEED)
+				player.velocity = launch_vel
+		else:
+			player.velocity.y += player.GRAVITY * delta
+			var cur_height = launch_height - player.position.y
+			var jump_rate = cur_height / player.JUMP_HEIGHT
+			var flop_angle_delta = sin((time_millis + noise.get_noise_1d(time_millis)) * FLOP_PER_MILLIS_FREQUENCY) * jump_rate * FLOP_ANGLE_LIMIT
+			player.sprite.rotation = sprite_starting_rotation + flop_angle_delta
+
+		player.move_and_slide()

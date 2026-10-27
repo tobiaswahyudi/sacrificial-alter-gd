@@ -31,6 +31,8 @@ func _input(event):
 	for idx in len(bodies):
 		var action_check_name = 'switch_' + str(idx + 1)
 		if event.is_action_pressed(action_check_name):
-			used[idx] = true
-			entries[idx].used = true
-			print("event is ", action_check_name, ". set used[",idx,"] to true ", used)
+			if not used[idx]:
+				used[idx] = true
+				entries[idx].used = true
+				print("event is ", action_check_name, ". set used[",idx,"] to true ", used)
+				player.change_body_type(bodies[idx])

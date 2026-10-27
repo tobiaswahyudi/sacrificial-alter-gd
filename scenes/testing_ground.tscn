@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cy0ffkicsbm3c" path="res://img/testing_ground/plain-edges.png" id="2_5ycv8"]
 [ext_resource type="Texture2D" uid="uid://db4ow3yowrdhj" path="res://img/placeholder/lem-crawl.png" id="5_5ycv8"]
 [ext_resource type="PackedScene" uid="uid://dp0swuqergo6q" path="res://interactable/altar.tscn" id="6_tulwc"]
+[ext_resource type="Texture2D" uid="uid://dv56eosridolx" path="res://img/placeholder/fish.png" id="7_27l5j"]
 [ext_resource type="Script" uid="uid://blh81ys6borur" path="res://script/player/player.gd" id="7_h6u8y"]
 [ext_resource type="Texture2D" uid="uid://duhswo5mkml1c" path="res://img/placeholder/frog.png" id="7_m5cqn"]
 [ext_resource type="Texture2D" uid="uid://ptabdoe23v0y" path="res://img/placeholder/lem.png" id="8_5liyv"]
@@ -125,6 +126,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("7_27l5j")
+}],
+"loop": true,
+"name": &"fish",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("7_m5cqn")
 }],
 "loop": true,
@@ -210,6 +219,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_m5cqn"]
 resource_name = "crawl"
@@ -284,6 +305,105 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ujaxs"]
+resource_name = "fish"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape:shape:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape:shape:height")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [28.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5707964]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"fish"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.6562437987498683]
 }
 
 [sub_resource type="Animation" id="Animation_27l5j"]
@@ -360,6 +480,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(0.5, 0.5)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_8eoxv"]
 resource_name = "walk"
@@ -435,11 +567,24 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_27l5j"]
 _data = {
 &"RESET": SubResource("Animation_5ycv8"),
 &"crawl": SubResource("Animation_m5cqn"),
+&"fish": SubResource("Animation_ujaxs"),
 &"frog": SubResource("Animation_27l5j"),
 &"walk": SubResource("Animation_8eoxv")
 }
@@ -479,7 +624,6 @@ rebinder_modal = NodePath("../CanvasLayer/Rebinder")
 position = Vector2(292, 100)
 script = ExtResource("7_h6u8y")
 JUMP_HEIGHT = 70.0
-MOVE_TYPE = 1
 CRAWL_SPEED = 75.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player" unique_id=784886208]
@@ -540,5 +684,6 @@ box_line_weight = 2.0
 font_size = 12.0
 cable_line_weight = 2.0
 
-[node name="StatusBar" parent="CanvasLayer" unique_id=260851948 instance=ExtResource("10_8eoxv")]
+[node name="StatusBar" parent="CanvasLayer" unique_id=260851948 node_paths=PackedStringArray("player") instance=ExtResource("10_8eoxv")]
+player = NodePath("../../Player")
 bodies = Array[int]([0, 1, 2, 3])
